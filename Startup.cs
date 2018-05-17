@@ -23,6 +23,16 @@ namespace WebApi_Core2_Test01
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Allowing Cross Domain Calls (CORS)
+            services.AddCors(options => {
+                options.AddPolicy("CorsPolicy",
+                                  builder => builder.AllowAnyOrigin()
+                                                    .AllowAnyMethod()
+                                                    .AllowAnyHeader()
+                                                    .AllowCredentials()
+                );
+            });
+
             services.AddMvc();
         }
 
@@ -33,6 +43,9 @@ namespace WebApi_Core2_Test01
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            // Allowing Cross Domain Calls (CORS)
+            app.UseCors("CorsPolicy");
 
             app.UseMvc();
         }
