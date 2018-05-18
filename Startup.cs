@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using NotebookAppApi.Model;
 
 namespace WebApi_Core2_Test01
 {
@@ -23,6 +24,9 @@ namespace WebApi_Core2_Test01
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Allawing DI 
+            services.AddTransient<INoteRepository, NoteRepository>();
+
             // Allowing Cross Domain Calls (CORS)
             services.AddCors(options => {
                 options.AddPolicy("CorsPolicy",
